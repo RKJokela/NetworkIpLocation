@@ -34,7 +34,8 @@
         android:id="@+id/button_locationInfo"
         android:layout_below="@+id/button_getIp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/location_button_marginTop"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -64,7 +65,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_country"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
 
         </TableRow>
@@ -89,7 +90,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_timezone"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
         </TableRow>
 
@@ -113,7 +114,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_city"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
         </TableRow>
 
@@ -137,7 +138,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_region"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
         </TableRow>
 
@@ -161,7 +162,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_latitude"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
         </TableRow>
 
@@ -185,7 +186,7 @@
                 android:layout_height="@dimen/table_row_height"
                 android:id="@+id/tv_longitude"
                 android:layout_column="1"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:gravity="center_vertical|left"/>
         </TableRow>
     </TableLayout>
