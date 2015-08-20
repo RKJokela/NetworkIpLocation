@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,22 @@ public class GetIpLocationActivityFragment extends Fragment {
                 startNetworkInfoTask(queryString);
             }
         });
+
+        getIpLocationInfoButton = (Button) getActivity().findViewById(R.id.button_locationInfo);
+        getIpLocationInfoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                caller = QUERY_GET_IP_LOC_INFO;
+                TextView ipInfoTV = (TextView) getActivity().findViewById(R.id.tv_ipAddress);
+                String ipInfo = ipInfoTV.getText().toString();
+                if (TextUtils.isEmpty(ipInfo)){
+                    ipInfo = "8.8.8.8";
+                }
+                String queryBase = "http://www.telize.com/geoip/";
+                String queryString =
+                        Uri.parse(queryBase).buildUpon().appendPath(ipInfo).toString();
+                startNetworkInfoTask(queryString);
+            }
+        });
     }
 
     public class GetNetworkInfoTask extends AsyncTask<String, Integer, String> {
@@ -100,9 +117,26 @@ public class GetIpLocationActivityFragment extends Fragment {
             if (caller == QUERY_GET_IP) {
                 displayResultsIP(ipLocationInfo);
             } else if (caller == QUERY_GET_IP_LOC_INFO) {
-
+                displayResultsIPLocInfo(ipLocationInfo);
             }
         }
+    }
+
+    private void displayResultsIPLocInfo(IpLocationInfo ipLocationInfo) {
+        TextView tv = null;
+
+        tv = (TextView) getActivity().findViewById(R.id.tv_latitude);
+        tv.setText(ipLocationInfo.getLatitude());
+        tv = (TextView) getActivity().findViewById(R.id.tv_longitude);
+        tv.setText(ipLocationInfo.getLongitude());
+        tv = (TextView) getActivity().findViewById(R.id.tv_country);
+        tv.setText(ipLocationInfo.getCountry());
+        tv = (TextView) getActivity().findViewById(R.id.tv_city);
+        tv.setText(ipLocationInfo.getCity());
+        tv = (TextView) getActivity().findViewById(R.id.tv_region);
+        tv.setText(ipLocationInfo.getRegion());
+        tv = (TextView) getActivity().findViewById(R.id.tv_timezone);
+        tv.setText(ipLocationInfo.getTimezone());
     }
 
     private void displayResultsIP(IpLocationInfo ipLocationInfo) {

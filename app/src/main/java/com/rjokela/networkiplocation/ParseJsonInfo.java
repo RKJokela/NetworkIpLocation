@@ -22,6 +22,7 @@ package com.rjokela.networkiplocation;
 
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -62,10 +63,28 @@ public class ParseJsonInfo {
             JSONObject jObject;
             jObject = new JSONObject(message);
 
+            // extract location fields from JSON
             String value = getJsonValue(jObject, IpLocationInfo.KEY_IP);
             ipLocationInfo.setIp(value);
+
+            if (jObject.length() > 1) {
+                // only do these when querying location info
+                value = getJsonValue(jObject, IpLocationInfo.KEY_LATITUDE);
+                ipLocationInfo.setLatitude(value);
+                value = getJsonValue(jObject, IpLocationInfo.KEY_LONGITUDE);
+                ipLocationInfo.setLongitude(value);
+                value = getJsonValue(jObject, IpLocationInfo.KEY_COUNTRY);
+                ipLocationInfo.setCountry(value);
+                value = getJsonValue(jObject, IpLocationInfo.KEY_CITY);
+                ipLocationInfo.setCity(value);
+                value = getJsonValue(jObject, IpLocationInfo.KEY_REGION);
+                ipLocationInfo.setRegion(value);
+                value = getJsonValue(jObject, IpLocationInfo.KEY_TIMEZONE);
+                ipLocationInfo.setTimezone(value);
+            }
+
         } catch (Exception e) {
-            Log.e(TAG, "decodeMessage: exception during parsing");
+            Log.e(TAG, "decodeMessage: exception during parsing - ", e);
             e.printStackTrace();
             return null;
         }
@@ -79,12 +98,13 @@ public class ParseJsonInfo {
 
     // Need to catch the exception if the json string does not have the key
     // and default value to null in that case.
-    public String getJsonValue(JSONObject jObject, String KEY) {
+    public String getJsonValue(JSONObject jObject, String KEY) throws JSONException {
         String value = "";
         try {
             value = jObject.getString(KEY);
+            Log.d(TAG, "getJsonValue: value = " + value);
         } catch (Exception e) {
-
+            throw e;
         }
         return  value;
     }
