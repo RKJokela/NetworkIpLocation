@@ -45,10 +45,14 @@ public class GetIpLocationActivityFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        final TextView tvIpAddr = (TextView) getActivity().findViewById(R.id.tv_ipAddress);
+
         Button getIpButton = (Button) getActivity().findViewById(R.id.button_getIp);
         getIpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String gettingIp = getResources().getString(R.string.getting_ip);
+                tvIpAddr.setText(gettingIp);
                 caller = QUERY_GET_IP;
                 String queryBase = "http://www.telize.com/jsonip";
                 String queryString = Uri.parse(queryBase).buildUpon().toString();
